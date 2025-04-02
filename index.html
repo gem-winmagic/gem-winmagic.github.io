@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open App</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .hidden { display: none; }
+        .button {
+            display: block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <p id="status">Checking for app...</p>
+    <div id="download-links" class="hidden">
+        <p>App not found. Download it below:</p>
+        <a href="https://play.google.com/store/apps/details?id=com.yourapp" class="button" target="_blank">Google Play Store</a>
+        <a href="https://apps.apple.com/app/idYOUR_APP_ID" class="button" target="_blank">Apple App Store</a>
+    </div>
+
+    <script>
+        const APP_SCHEME = "yourapp://"; // Replace with actual app scheme
+        const timeout = 2000;
+        const now = Date.now();
+        
+        const iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        iframe.src = APP_SCHEME;
+        document.body.appendChild(iframe);
+
+        setTimeout(() => {
+            const elapsed = Date.now() - now;
+            if (elapsed < timeout + 500) {
+                document.getElementById("status").textContent = "";
+                document.getElementById("download-links").classList.remove("hidden");
+            }
+            document.body.removeChild(iframe);
+        }, timeout);
+    </script>
+</body>
+</html>
