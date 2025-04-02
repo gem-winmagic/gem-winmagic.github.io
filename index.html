@@ -35,7 +35,7 @@
         <a href="https://apps.apple.com/app/idYOUR_APP_ID" class="button" target="_blank">Apple App Store</a>
     </div>
 
-    <script>
+    <script type="text/javascript">
         const APP_SCHEME = "magicendpoint://"; // Replace with actual app scheme
         const timeout = 2000;
         const now = Date.now();
@@ -52,12 +52,11 @@
                 document.getElementById("download-links").classList.remove("hidden");
             }
             document.body.removeChild(iframe);
+            window.location.href = APP_SCHEME;
         }, timeout);
-    </script>
-    <script type="text/javascript">
         document.getElementById('openAppButton').addEventListener('click', function () {
             // Redirect to the MAUI app using the custom URI scheme
-            window.location.href = "magicendpoint://";
+            window.location.href = APP_SCHEME;
         });
     </script>
 </body>
