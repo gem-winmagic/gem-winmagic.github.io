@@ -37,27 +37,31 @@
 
     <script type="text/javascript">
         const APP_SCHEME = "magicendpoint://"; // Replace with actual app scheme
+        const PLAY_STORE_LINK = "https://play.google.com/store/apps/details?id=com.winmagic.wauthf";
+        const APP_STORE_LINK = "https://apps.apple.com/us/app/magicendpoint2/id6470315027";
         const timeout = 2000;
         const now = Date.now();
-        
-        const iframe = document.createElement("iframe");
-        iframe.style.display = "none";
-        iframe.src = APP_SCHEME;
-        document.body.appendChild(iframe);
+
+        // Try opening the app
+        window.location.href = APP_SCHEME;
 
         setTimeout(() => {
             const elapsed = Date.now() - now;
             if (elapsed < timeout + 500) {
                 document.getElementById("status").textContent = "";
                 document.getElementById("download-links").classList.remove("hidden");
+                redirectToStore();
             }
-            document.body.removeChild(iframe);
-            window.location.href = APP_SCHEME;
         }, timeout);
-        document.getElementById('openAppButton').addEventListener('click', function () {
-            // Redirect to the MAUI app using the custom URI scheme
-            window.location.href = APP_SCHEME;
-        });
+
+        function redirectToStore() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            if (/android/i.test(userAgent)) {
+                window.location.href = PLAY_STORE_LINK;
+            } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                window.location.href = APP_STORE_LINK;
+            }
+        }
     </script>
 </body>
 </html>
